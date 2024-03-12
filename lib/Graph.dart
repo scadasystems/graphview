@@ -81,6 +81,13 @@ class Graph {
     _edges.removeWhere((edge) => edge.source == predecessor && edge.destination == current);
   }
 
+  //TODO: ADD Clear
+  void clear() {
+    _nodes.clear();
+    _edges.clear();
+    notifyGraphObserver();
+  }
+
   bool hasNodes() => _nodes.isNotEmpty;
 
   Edge? getEdgeBetween(Node source, Node? destination) =>
@@ -131,17 +138,14 @@ class Graph {
 
   String toJson() {
     var jsonString = {
-      'nodes': [
-       ..._nodes.map((e) => e.hashCode.toString())
-      ],
+      'nodes': [..._nodes.map((e) => e.hashCode.toString())],
       'edges': [
-        ..._edges.map((e) =>   {'from': e.source.hashCode.toString(), 'to': e.destination.hashCode.toString()})
+        ..._edges.map((e) => {'from': e.source.hashCode.toString(), 'to': e.destination.hashCode.toString()})
       ]
     };
 
     return json.encode(jsonString);
   }
-
 }
 
 class Node {
